@@ -15,6 +15,7 @@ public class RegisterServiceBean implements RegisterService {
     @Override
     public void registerUser(String name, String email, String password) {
         User user = new User(name, email, password);
+
         em.persist(user);
     }
 }

@@ -28,8 +28,12 @@ public class Login  extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", email);
             resp.sendRedirect("home.jsp");
+            System.out.println("Logged in");
         } else {
             resp.sendRedirect("login.jsp");
+            System.out.println("Login failed");
+
+
         }
 
     }

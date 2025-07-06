@@ -2,13 +2,12 @@ package jta.chopsticks.ee.bank.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/home.jsp")
+@WebFilter(urlPatterns = {"/home.jsp"})
 public class RequestFilter implements Filter {
 
     @Override

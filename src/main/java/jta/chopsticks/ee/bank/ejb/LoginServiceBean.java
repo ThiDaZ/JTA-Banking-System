@@ -2,6 +2,7 @@ package jta.chopsticks.ee.bank.ejb;
 
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jta.chopsticks.ee.bank.ejb.remote.LoginService;
 import jta.chopsticks.ee.bank.entity.User;
@@ -15,11 +16,16 @@ public class LoginServiceBean implements LoginService {
     @Override
     public boolean login(String email, String password) {
 
-        User user = em.createNamedQuery("User.findByEmailAndPassword", User.class)
-                .setParameter("email", email)
-                .setParameter("password", password)
-                .getSingleResult();
+        try {
+            User user = em.createNamedQuery("User.findByEmailAndPassword", User.class)
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
 
-        return user != null;
+
     }
 }
