@@ -1,9 +1,12 @@
 package jta.chopsticks.ee.bank.ejb;
 
 import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import jta.chopsticks.ee.bank.ejb.remote.AccountService;
 import jta.chopsticks.ee.bank.entity.Account;
 
@@ -14,6 +17,7 @@ public class AccountServiceBean implements AccountService {
     private EntityManager em;
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public void creditAccount(String accountNo, double amount) {
         try {
             Account account = em.createNamedQuery("Account.findByAccountNo", Account.class)
@@ -27,11 +31,12 @@ public class AccountServiceBean implements AccountService {
             em.merge(account);
 
         } catch (NoResultException e) {
-
+            e.printStackTrace();
         }
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public void debitAccount(String accountNo, double amount) {
         try {
 
@@ -46,7 +51,7 @@ public class AccountServiceBean implements AccountService {
             em.merge(account);
 
         } catch (NoResultException e) {
-
+            e.printStackTrace();
         }
     }
 }
