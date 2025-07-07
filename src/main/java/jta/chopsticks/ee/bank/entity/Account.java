@@ -3,10 +3,12 @@ package jta.chopsticks.ee.bank.entity;
 import jakarta.persistence.*;
 
 @Entity
+@NamedQuery(name = "Account.findByAccountNo", query = "SELECT a FROM Account a WHERE a.accountNo=:accountNo")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(unique = true, nullable = false)
     private String accountNo;
     private double balance;
     @ManyToOne(cascade = CascadeType.ALL)
