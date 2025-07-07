@@ -14,7 +14,7 @@ public class RequestFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse ServletResponse, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse response = (HttpServletResponse) ServletResponse;
-        if(req.getSession().getAttribute("user") == null) {
+        if(req.getSession().getAttribute("user") != null) {
             chain.doFilter(request, ServletResponse);
         }else{
             response.sendRedirect("login.jsp");

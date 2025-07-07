@@ -25,5 +25,7 @@ public class Signup extends HttpServlet {
 
         registerService.registerUser(name, email, password);
 
+        resp.sendRedirect("login.jsp");
+
     }
 }
